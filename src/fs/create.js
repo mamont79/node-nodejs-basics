@@ -1,25 +1,18 @@
 import path from "path";
 import { fileURLToPath } from "url";
-import fs from "fs";
+import fs from "fs/promises";
+
+const __dirname = fileURLToPath(import.meta.url);
+const filePath = path.join(__dirname, "..", "files", "fresh.txt");
+
+console.log(filePath);
 
 const create = async () => {
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = path.dirname(__filename);
-  const filePath = path.join(__dirname, "fresh.txt");
-
   try {
-    await fs.promises.access(filePath);
-    console.error("FS operation failed");
-  } catch (error) {
-    fs.writeFile(
-      filePath,
-      "I am fresh and young",
-      { overwrite: false },
-      function (err) {
-        if (err) throw err;
-        console.log("fresh.txt was created");
-      }
-    );
+    await fs.writeFile(filePath, "I am fresh and young", { flag: "wx" });
+    console.log("File was created");
+  } catch {
+    throw new Error("FS operation failed");
   }
 };
 
