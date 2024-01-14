@@ -3,11 +3,12 @@ import { fileURLToPath } from "url";
 import fs from "fs/promises";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const pathToFolder = path.join(__dirname, "files");
+const pathToFilesFolder = path.join(__dirname, "files");
 
 const list = async () => {
   try {
-    console.log(pathToFolder);
+    const filesList = await fs.readdir(pathToFilesFolder);
+    console.log(filesList);
   } catch {
     throw new Error("FS operation failed");
   }
