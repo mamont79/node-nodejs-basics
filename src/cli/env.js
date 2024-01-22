@@ -5,7 +5,7 @@ const parseEnv = () => {
     keyOfVar.startsWith("RSS")
   );
   const rssVars = envVars
-    .map((elem) => elem + "=" + process.env[elem])
+    .map((elem) => `${elem}=${process.env[elem]}`)
     .join("; ");
   console.log(rssVars);
 };
